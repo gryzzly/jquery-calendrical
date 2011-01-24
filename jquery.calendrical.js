@@ -15,7 +15,7 @@
     
     function daysInMonth(year, month)
     {
-        if (year instanceof Date) return daysInMonth(year.getFullYear(), year.getMonth());
+        if (year instanceof Date) { return daysInMonth(year.getFullYear(), year.getMonth());}
         if (month == 1) {
             var leapYear = (year % 4 == 0) &&
                 (!(year % 100 == 0) || (year % 400 == 0));
@@ -71,7 +71,7 @@
     
     function parseDate(date, usa)
     {
-        if (usa) return new Date(date);
+        if (usa) { return new Date(date); }
         a = date.split(/[\.\-\/]/);
         var day = a.shift();
         var month = a.shift();
@@ -83,15 +83,15 @@
     function formatTime(hour, minute, iso)
     {
         var printMinute = minute;
-        if (minute < 10) printMinute = '0' + minute;
+        if (minute < 10) { printMinute = '0' + minute; }
 
         if (iso) {
-            var printHour = hour
-            if (printHour < 10) printHour = '0' + hour;
+            var printHour = hour;
+            if (printHour < 10) { printHour = '0' + hour; }
             return printHour + ':' + printMinute;
         } else {
             var printHour = hour % 12;
-            if (printHour == 0) printHour = 12;
+            if (printHour == 0) { printHour = 12; }
             var half = (hour < 12) ? 'am' : 'pm';
             return printHour + ':' + printMinute + half;
         }
@@ -99,12 +99,12 @@
     
     function parseTime(text)
     {
-        var match = match = /(\d+)\s*[:\-\.,]\s*(\d+)\s*(am|pm)?/i.exec(text);
+        var match = /(\d+)\s*[:\-\.,]\s*(\d+)\s*(am|pm)?/i.exec(text);
         if (match && match.length >= 3) {
             var hour = Number(match[1]);
-            var minute = Number(match[2])
-            if (hour == 12 && match[3]) hour -= 12;
-            if (match[3] && match[3].toLowerCase() == 'pm') hour += 12;
+            var minute = Number(match[2]);
+            if (hour == 12 && match[3]) { hour -= 12; }
+            if (match[3] && match[3].toLowerCase() == 'pm') { hour += 12; }
             return {
                 hour:   hour,
                 minute: minute
@@ -175,7 +175,7 @@
         //Wind end date forward to saturday week after month
         var endDate = monthAfter(year, month);
         var ff = 6 - endDate.getDay();
-        if (ff < 6) ff += 7;
+        if (ff < 6) { ff += 7; }
         for (var i = 0; i < ff; i++) endDate = dayAfter(endDate);
         
         var table = $('<table />');
@@ -186,7 +186,7 @@
 
         //Rewind date to monday week before month
         var rewind = date.getDay() + 7;
-        for (var i = 0; i < rewind; i++) date = dayBefore(date);
+        for (var i = 0; i < rewind; i++) { date = dayBefore(date); }
         
         while (date <= endDate) {
             var td = $('<td />')
@@ -244,7 +244,7 @@
         var ul = $('<ul />');
         for (var hour = 0; hour < 24; hour++) {
             for (var minute = 0; minute < 60; minute += 30) {
-                if (startTime && startTime > (hour * 60 + minute)) continue;
+                if (startTime && startTime > (hour * 60 + minute)) { continue; }
                 
                 (function() {
                     var timeText = formatTime(hour, minute, options.isoTime);
@@ -317,7 +317,7 @@
             var within = false;
             
             element.bind('focus click', function() {
-                if (div) return;
+                if (div) { return; }
                 var offset = element.position();
                 var padding = element.css('padding-left');
                 div = $('<div />')
@@ -370,10 +370,10 @@
                 );
             }).blur(function() {
                 if (within){
-                    if (div) element.focus();
+                    if (div) { element.focus(); }
                     return;
                 }
-                if (!div) return;
+                if (!div) { return; }
                 div.remove();
                 div = null;
             });
@@ -402,14 +402,15 @@
             var within = false;
             
             element.bind('focus click', function() {
-                if (div) return;
+                if (div) { return; }
 
                 var useStartTime = options.startTime;
                 if (useStartTime) {
                     if (options.startDate && options.endDate &&
                         !areDatesEqual(parseDate(options.startDate.val()),
-                            parseDate(options.endDate.val())))
+                            parseDate(options.endDate.val()))) { 
                         useStartTime = false;
+                    }
                 }
 
                 var offset = element.position();
